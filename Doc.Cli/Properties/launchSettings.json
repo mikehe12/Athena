@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Doc.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\..\\..\\..\\Doc"
+    }
+  }
+}
