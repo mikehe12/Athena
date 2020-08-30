@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doc.Cli", "Doc.Cli\Doc.Cli.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doc.Test", "Doc.Test\Doc.Test.csproj", "{4531FB1F-FCD6-48CE-B42D-731080651B32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parse", "Parse\Parse.csproj", "{C62D5327-2014-4A23-86DC-905E88E6917A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{4531FB1F-FCD6-48CE-B42D-731080651B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4531FB1F-FCD6-48CE-B42D-731080651B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4531FB1F-FCD6-48CE-B42D-731080651B32}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C62D5327-2014-4A23-86DC-905E88E6917A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C62D5327-2014-4A23-86DC-905E88E6917A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C62D5327-2014-4A23-86DC-905E88E6917A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C62D5327-2014-4A23-86DC-905E88E6917A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

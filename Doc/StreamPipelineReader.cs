@@ -43,6 +43,8 @@ namespace Doc
 					break;
 				}
 			}
+
+			await reader.CompleteAsync();
 		}
 
 		bool SeekDelimiter(IBufferDelimiter delimiter, ref ReadOnlySequence<byte> buffer, out ReadOnlySequence<byte> line)
