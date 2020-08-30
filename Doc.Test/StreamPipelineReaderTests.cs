@@ -30,9 +30,11 @@ namespace Doc.Test
 			var stream = new MemoryStream(Encoding.ASCII.GetBytes(data));
 			var reader = PipeReader.Create(stream);
 
+			var parsedStrings = new List<string>();
+
 			var delimiter = new CharacterBufferDelimiter('\n');
 			var consumer = new SingleParsedConsumer<string>(delimiter,
-				s => output.WriteLine(s));
+				s => parsedStrings.Add(s));
 
 			var streamReader = new StreamPipelineReader(reader, consumer);
 
@@ -41,6 +43,7 @@ namespace Doc.Test
 			//ReadResult readResult = await reader.ReadAsync();
 			//ReadOnlySequence<byte> buffer = readResult.Buffer;
 
+			Assert.Equal(2, parsedStrings.Count);
 
 		}
 
