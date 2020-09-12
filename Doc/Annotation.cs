@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Doc
 {
-	public sealed class ParsedFunction
+	public sealed class Annotation
 	{
+		
 	}
 }

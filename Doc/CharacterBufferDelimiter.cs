@@ -35,9 +35,4 @@ namespace Doc
 			return eol;
 		}
 	}
-
-	public interface IBufferDelimiter
-	{
-		SequencePosition? Delimit(ref ReadOnlySequence<byte> buffer);
-	}
 }

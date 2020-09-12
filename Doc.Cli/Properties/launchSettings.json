@@ -2,7 +2,7 @@
   "profiles": {
     "Doc.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "..\\..\\..\\..\\Doc"
+      "commandLineArgs": "..\\..\\..\\..\\Doc\\StreamPipelineReader.cs"
     }
   }
 }

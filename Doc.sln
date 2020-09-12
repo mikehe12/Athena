@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doc.Cli", "Doc.Cli\Doc.Cli.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doc.Test", "Doc.Test\Doc.Test.csproj", "{4531FB1F-FCD6-48CE-B42D-731080651B32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryHelpers", "BinaryHelpers\BinaryHelpers.csproj", "{BA3DCA2C-6411-4C78-8A6B-C5A08D8E65EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryHelpers.Test", "BinaryHelpers.Test\BinaryHelpers.Test.csproj", "{68192831-ABB4-4065-AF50-D4AB9AB6A38A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{4531FB1F-FCD6-48CE-B42D-731080651B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4531FB1F-FCD6-48CE-B42D-731080651B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4531FB1F-FCD6-48CE-B42D-731080651B32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA3DCA2C-6411-4C78-8A6B-C5A08D8E65EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA3DCA2C-6411-4C78-8A6B-C5A08D8E65EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA3DCA2C-6411-4C78-8A6B-C5A08D8E65EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA3DCA2C-6411-4C78-8A6B-C5A08D8E65EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68192831-ABB4-4065-AF50-D4AB9AB6A38A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68192831-ABB4-4065-AF50-D4AB9AB6A38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68192831-ABB4-4065-AF50-D4AB9AB6A38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68192831-ABB4-4065-AF50-D4AB9AB6A38A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

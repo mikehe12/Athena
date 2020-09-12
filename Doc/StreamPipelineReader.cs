@@ -44,24 +44,8 @@ namespace Doc
 				}
 			}
 
+			// Wait for finishing of processing before closing?
 			await reader.CompleteAsync();
-		}
-
-		bool SeekDelimiter(IBufferDelimiter delimiter, ref ReadOnlySequence<byte> buffer, out ReadOnlySequence<byte> line)
-		{
-			// Look for a EOL in the buffer.
-			SequencePosition? position = delimiter.Delimit(ref buffer);
-
-			if (position == null)
-			{
-				line = default;
-				return false;
-			}
-
-			// Skip the line + the \n.
-			line = buffer.Slice(0, position.Value);
-			buffer = buffer.Slice(buffer.GetPosition(1, position.Value));
-			return true;
 		}
 	}
 }

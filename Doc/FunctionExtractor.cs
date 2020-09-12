@@ -9,7 +9,7 @@ namespace Doc
 {
 	public sealed class FunctionExtractor
 	{
-		public ParsedFunction? TryParse(ref ReadOnlySequence<byte> buffer)
+		public Annotation? TryParse(ref ReadOnlySequence<byte> buffer)
 		{
 			return null;
 		}

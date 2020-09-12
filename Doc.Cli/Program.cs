@@ -14,9 +14,11 @@ namespace Doc.Cli
 			var currentFolder = Directory.GetCurrentDirectory();
 			var targetFolder = Path.Combine(currentFolder, args[0]);
 
-			var files = Directory.EnumerateFiles(targetFolder, "*.cs", SearchOption.AllDirectories);
+			//var files = Directory.EnumerateFiles(targetFolder, "*.cs", SearchOption.AllDirectories);
 
-			foreach(var filename in files)
+			//var files = new FileInfo[] { new FileInfo(args[0])};
+
+			foreach(var filename in args)
 			{
 				Console.WriteLine($"Parsing file: {filename}");
 				Console.WriteLine();
