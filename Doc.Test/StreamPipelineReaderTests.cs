@@ -125,7 +125,7 @@ namespace Doc.Test
 		[Theory]
 		[InlineData(10, 12)]
 		[InlineData(1024, 128)]
-		[InlineData(65536, 1280)]
+		[InlineData(8096, 256)]
 		public async Task GivenLineConsumer_ShouldProduceLines(int lineCount, int lineLength)
 		{
 			var data = string.Concat(
@@ -161,6 +161,7 @@ namespace Doc.Test
 
 			// Should produce expected number of lines.
 			Assert.Equal(lineCount, reads.Count);
+			// Check each line ends with \n?
 		}
 
 
