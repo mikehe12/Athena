@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Doc\StreamPipelineReader.cs" Link="TestSamples\StreamPipelineReader.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.IO.Pipelines" Version="4.7.2" />
     <PackageReference Include="xUnit" Version="2.4.1" />
     <PackageReference Include="xUnit.Runner.VisualStudio" Version="2.4.1">
@@ -16,6 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Doc\Doc.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestSamples\" />
   </ItemGroup>
 
 </Project>
