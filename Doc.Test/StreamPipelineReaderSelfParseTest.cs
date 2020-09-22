@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Pipelines;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +27,23 @@ namespace Doc.Test
 		{
 			var file = new FileInfo(filename);
 
-			var reader = file.OpenText();
-
+			Assert.True(file.Exists);
 		}
 
+		[Fact]
+		public void CanParseFileLines()
+		{
+			const int MinExpectedLines = 20;
+
+			List<string> lines = new();
+
+			using (var fileStream = new FileStream(filename, FileMode.Open))
+			{
+				var reader = PipeReader.Create(fileStream);
+
+				var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>>(new LineDelimiter(), s => lines.Add(Encoding.UTF8.GetString(s)));
+				var pipelineReader = new StreamPipelineReader(reader, consumer);
+			}
+		}
 	}
 }

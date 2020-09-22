@@ -1,0 +1,42 @@
+﻿Notes
+
+Roslyn approach
+DescendentNodes().OfType<MethodDeclarationSyntax>().Select(m => (m.BlockBody ?? m.ExpressionBody).ToString)
+You'll get tripped up very quickly with lambdas
+
+Do you happen to know if Roslyn would pick up comments or XML doc?
+333fredToday at 10:56 PM
+Yes
+It gets parsed as trivia on nodes
+mikeheToday at 10:56 PM
+Oh interesting
+333fredToday at 10:57 PM
+A SyntaxTree is a concrete syntax tree: it is possible to get back to the exact text used to create the tree from the tree
+
+You'd use an api like http://sourceroslyn.io/#Microsoft.CodeAnalysis.CSharp/Syntax/SyntaxFactory.cs,b3f79951dc0ae2ec,references to parse the file text
+        /// <summary>
+        /// Parse a CompilationUnitSyntax using the grammar rule for an entire compilation unit (file). To produce a
+        /// SyntaxTree instance, use CSharpSyntaxTree.ParseText instead.
+        /// </summary>
+        /// <param name="text">The text of the compilation unit.</param>
+        /// <param name="offset">Optional offset into text.</param>
+        /// <param name="options">The optional parse options to use. If no options are specified default options are
+        /// used.</param>
+        public static CompilationUnitSyntax ParseCompilationUnit(string text, int offset = 0, CSharpParseOptions? options = null)
+        {
+            // note that we do not need a "consumeFullText" parameter, because parsing a compilation unit always must
+            // consume input until the end-of-file
+            using (var lexer = MakeLexer(text, offset, options))
+            using (var parser = MakeParser(lexer))
+            {
+                var node = parser.ParseCompilationUnit();
+                return (CompilationUnitSyntax)node.CreateRed();
+            }
+        }
+Then get the root and dig the info you need from it
+The syntax visualizer is very helpful for understanding tree structure: it's an optional component in the vs installer, part of the Microsoft compiler sdk
+It allows you to see the and navigate the syntax tree you're currently writing
+As in the current file
+
+
+

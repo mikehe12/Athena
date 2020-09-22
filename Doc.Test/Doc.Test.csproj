@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Doc\StreamPipelineReader.cs" Link="TestSamples\StreamPipelineReader.cs">
+	  <None Include="..\Doc\StreamPipelineReader.cs" Link="TestSamples\StreamPipelineReader.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -22,10 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Doc\Doc.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TestSamples\" />
   </ItemGroup>
 
 </Project>
