@@ -31,10 +31,8 @@ namespace Doc.Test
 		}
 
 		[Fact]
-		public void CanParseFileLines()
+		public async Task CanParseFileLines()
 		{
-			const int MinExpectedLines = 20;
-
 			List<string> lines = new();
 
 			using (var fileStream = new FileStream(filename, FileMode.Open))
@@ -43,7 +41,12 @@ namespace Doc.Test
 
 				var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>>(new LineDelimiter(), s => lines.Add(Encoding.UTF8.GetString(s)));
 				var pipelineReader = new StreamPipelineReader(reader, consumer);
+
+				await pipelineReader.Read();
 			}
+
+			var expectedLineCount = (await File.ReadAllLinesAsync(filename)).Length;
+			Assert.Equal(expectedLineCount, lines.Count);
 		}
 	}
 }
