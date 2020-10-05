@@ -35,18 +35,42 @@ namespace Doc.Test
 		{
 			List<string> lines = new();
 
-			using (var fileStream = new FileStream(filename, FileMode.Open))
-			{
-				var reader = PipeReader.Create(fileStream);
+			using var fileStream = new FileStream(filename, FileMode.Open);
+			var reader = PipeReader.Create(fileStream);
 
-				var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>>(new LineDelimiter(), s => lines.Add(Encoding.UTF8.GetString(s)));
-				var pipelineReader = new StreamPipelineReader(reader, consumer);
+			// Delimit lines
+			var delimiter = new LineDelimiter();
 
-				await pipelineReader.Read();
-			}
+			var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>>(delimiter,
+				s => lines.Add(Encoding.UTF8.GetString(s)));
+			var pipelineReader = new StreamPipelineReader(reader, consumer);
+
+			await pipelineReader.Read();
 
 			var expectedLineCount = (await File.ReadAllLinesAsync(filename)).Length;
 			Assert.Equal(expectedLineCount, lines.Count);
+		}
+
+		[Fact]
+		public async Task GivenSections_CanExtract()
+		{
+			List<string> sections = new();
+
+			using var fileStream = new FileStream(filename, FileMode.Open);
+			var reader = PipeReader.Create(fileStream);
+
+			// Search for sections
+			var sectioner = new SectionExtractor();
+
+			var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>>(sectioner,
+				s => sections.Add(Encoding.UTF8.GetString(s)));
+			var pipelineReader = new StreamPipelineReader(reader, consumer);
+
+			await pipelineReader.Read();
+
+			Assert.Single(sections);
+
+			
 		}
 	}
 }

@@ -22,6 +22,7 @@ namespace Doc
 			this.consumer = delimiter;
 		}
 
+		//#
 		public async Task Read()
 		{
 			// Start read
@@ -47,5 +48,6 @@ namespace Doc
 			// Wait for finishing of processing before closing?
 			await reader.CompleteAsync();
 		}
+		//#
 	}
 }
