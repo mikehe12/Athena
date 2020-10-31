@@ -69,8 +69,6 @@ namespace Doc.Test
 			await pipelineReader.Read();
 
 			Assert.Single(sections);
-
-			
 		}
 	}
 }

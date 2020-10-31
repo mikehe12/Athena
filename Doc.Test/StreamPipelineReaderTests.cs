@@ -125,7 +125,7 @@ namespace Doc.Test
 		[Theory]
 		[InlineData(10, 12)]
 		[InlineData(1024, 128)]
-		[InlineData(8096, 256)]
+		[InlineData(8192, 256)]
 		public async Task GivenLineConsumer_ShouldProduceLines(int lineCount, int lineLength)
 		{
 			var data = string.Concat(
