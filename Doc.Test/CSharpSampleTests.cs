@@ -11,15 +11,15 @@ using Xunit.Abstractions;
 
 namespace Doc.Test
 {
-	public class StreamPipelineReaderSelfParseTest : IDisposable
+	public class CSharpSampleTests : IDisposable
 	{
-		readonly static string filename = Path.Combine(TestSamples.Folder, "StreamPipelineReader.cs");
+		readonly static string filename = Path.Combine(TestSamples.Folder, "CSharpSample.cs");
 		readonly ITestOutputHelper output;
 		readonly FileStream fileStream;
 		readonly PipeReader reader;
 
 
-		public StreamPipelineReaderSelfParseTest(ITestOutputHelper output)
+		public CSharpSampleTests(ITestOutputHelper output)
 		{
 			this.output = output;
 
@@ -43,7 +43,7 @@ namespace Doc.Test
 		}
 
 		[Fact]
-		public async Task CanParseFileLines()
+		public async Task GivenSample_CanCountLines()
 		{
 			List<string> lines = new();
 
@@ -61,20 +61,21 @@ namespace Doc.Test
 		}
 
 		[Fact]
-		public async Task GivenSections_CanExtract()
+		public async Task GivenSample_CanFindSingleLineComments()
 		{
-			List<string> sections = new();
+			const int ExpectedNumLineComments = 2;
+			List<string> comments = new();
 
-			// Search for sections
-			var sectioner = new SectionExtractor();
+			// Set up processing pipeline
+			var delimiter = new LineDelimiter();
+			var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>>(delimiter,
+				s => comments.Add(Encoding.UTF8.GetString(s)));
 
-			var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>>(sectioner,
-				s => sections.Add(Encoding.UTF8.GetString(s)));
 			var pipelineReader = new StreamPipelineReader(reader, consumer);
 
 			await pipelineReader.Read();
 
-			Assert.Single(sections);
+
 		}
 	}
 }

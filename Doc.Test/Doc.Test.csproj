@@ -6,9 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TestSamples\CSharpSample.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <None Include="..\Doc\StreamPipelineReader.cs" Link="TestSamples\StreamPipelineReader.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+	  <None Include="TestSamples\CSharpSample.cs">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
   </ItemGroup>
 
   <ItemGroup>

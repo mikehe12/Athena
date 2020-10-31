@@ -22,7 +22,7 @@ namespace Doc
 
 		public void FeedLine(ReadOnlySequence<byte> nextLine)
 		{
-			nextLine.Slice()
+			//nextLine.Slice()
 		}
 	}
 }
