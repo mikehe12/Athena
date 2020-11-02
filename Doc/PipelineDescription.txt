@@ -1,0 +1,27 @@
+﻿Parsing Pipeline
+
+byte[] block
+
+-> linesplitter->
+
+byte[] one line at a time
+state: line number
+
+-> comment searcher ->
+look for comment
+
+byte[] line, start after comment and whitespace
+state: line number, comment flag, within block comment flag
+
+-> snippet searcher ->
+look for snippet start character
+drop if not snippet
+
+byte[] line
+state: line number, comment flag, snippet flag, tag
+
+
+
+
+
+

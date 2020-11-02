@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Doc.DataTypes;
+using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace Doc
 {
-	public sealed class LineDelimiter : IBufferParser<ReadOnlySequence<byte>>
+	public sealed class LineDelimiter : IBufferParser<ReadOnlySequence<byte>>,
+		IParserBlock<FileBlockBuffer, LineBuffer, Unit>
 	{
 		const byte endOfLine = (byte)'\n';
 
+		public LineBuffer Parse(FileBlockBuffer input, Unit context)
+		{
+			throw new NotImplementedException();
+		}
 
 		public SequencePosition? TryParse(ReadOnlySequence<byte> buffer, out ReadOnlySequence<byte> result)
 		{

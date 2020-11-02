@@ -40,3 +40,15 @@ As in the current file
 
 
 
+=============================
+Push based vs pull based
+
+Push based:
+Async read block at a time
+Push to functions
+
+
+Pull based
+Each function has a reference to pull more
+Synchronous pull
+Composed by iterating over all files, starting
