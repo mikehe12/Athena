@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Doc.Test
+namespace Athena.Test
 {
 	public class CSharpSampleTests : IDisposable
 	{

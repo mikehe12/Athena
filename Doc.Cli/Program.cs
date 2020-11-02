@@ -5,7 +5,7 @@ using System.IO.Pipelines;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Doc.Cli
+namespace Athena.Cli
 {
 	class Program
 	{

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Doc.Utils
+namespace Athena.Utils
 {
 	public static class ReadOnlySequenceExtensions
 	{

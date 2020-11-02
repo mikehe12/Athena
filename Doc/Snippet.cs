@@ -1,6 +1,6 @@
 ﻿using System.Buffers;
 
-namespace Doc
+namespace Athena
 {
 	public readonly struct Snippet
 	{

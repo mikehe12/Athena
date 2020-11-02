@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Doc
+namespace Athena
 {
 	/// <summary>
 	/// A tagged section of source.

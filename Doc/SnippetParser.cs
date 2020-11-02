@@ -3,7 +3,7 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Doc
+namespace Athena
 {
 	class SnippetParser : IBufferParser<Snippet>
 	{

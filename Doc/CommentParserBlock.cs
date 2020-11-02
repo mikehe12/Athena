@@ -1,4 +1,4 @@
-﻿using Doc.Utils;
+﻿using Athena.Utils;
 using System;
 using System.Buffers;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Doc
+namespace Athena
 {
 	/// <summary>
 	/// Finds comments in source code

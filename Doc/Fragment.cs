@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Doc
+namespace Athena
 {
 	public sealed class Fragment
 	{

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Doc.DataTypes
+namespace Athena.DataTypes
 {
 	public readonly struct Unit
 	{

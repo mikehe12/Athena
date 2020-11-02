@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Doc
+namespace Athena
 {
 	/// <summary>
 	/// A block in a parsing pipeline that performs a parsing step.

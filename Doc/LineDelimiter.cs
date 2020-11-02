@@ -1,4 +1,4 @@
-﻿using Doc.DataTypes;
+﻿using Athena.DataTypes;
 using System;
 using System.Buffers;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Doc
+namespace Athena
 {
 	public sealed class LineDelimiter : IBufferParser<ReadOnlySequence<byte>>,
 		IParserBlock<FileBlockBuffer, LineBuffer, Unit>

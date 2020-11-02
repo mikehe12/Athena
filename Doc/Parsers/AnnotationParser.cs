@@ -6,7 +6,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Doc.Parsers
+namespace Athena.Parsers
 {
 	// Parses the start and end of a function.
 	public sealed class AnnotationParser : IBufferParser<Annotation>

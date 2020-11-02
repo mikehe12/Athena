@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Doc.Test
+namespace Athena.Test
 {
 	// $TestClass This is a test class
 	// Further comments
