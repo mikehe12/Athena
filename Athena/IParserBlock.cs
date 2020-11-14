@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Athena.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,6 @@ namespace Athena
 	/// </summary>
 	public interface IParserBlock<TIn, TOut, TState>
 	{
-		public TOut Parse(TIn input, TState context);
+		public Result<TOut> Parse(TIn input, ref TState context);
 	}
 }

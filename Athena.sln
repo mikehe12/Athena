@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Athena", "Doc\Athena.csproj", "{0F5E1DE9-4DEC-442E-B650-FB266AF12D85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Athena", "Athena\Athena.csproj", "{0F5E1DE9-4DEC-442E-B650-FB266AF12D85}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Athena.Cli", "Doc.Cli\Athena.Cli.csproj", "{901B1229-47BE-4D37-8AE3-C22FFACC10E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Athena.Cli", "Athena.Cli\Athena.Cli.csproj", "{901B1229-47BE-4D37-8AE3-C22FFACC10E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Athena.Test", "Doc.Test\Athena.Test.csproj", "{4531FB1F-FCD6-48CE-B42D-731080651B32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Athena.Test", "Athena.Test\Athena.Test.csproj", "{4531FB1F-FCD6-48CE-B42D-731080651B32}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryHelpers", "BinaryHelpers\BinaryHelpers.csproj", "{BA3DCA2C-6411-4C78-8A6B-C5A08D8E65EB}"
 EndProject

@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Doc\Athena.csproj" />
+    <ProjectReference Include="..\Athena\Athena.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <None Include="..\Doc\StreamPipelineReader.cs" Link="TestSamples\StreamPipelineReader.cs">
+	  <None Include="..\Athena\StreamPipelineReader.cs" Link="TestSamples\StreamPipelineReader.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 	  <None Include="TestSamples\CSharpSample.cs">
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Doc\Athena.csproj" />
+    <ProjectReference Include="..\Athena\Athena.csproj" />
   </ItemGroup>
 
 </Project>
