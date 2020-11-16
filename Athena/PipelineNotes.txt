@@ -25,3 +25,11 @@ state: line number, comment flag, snippet flag, tag
 
 
 
+
+Procedural:
+
+Parse one line at a time
+Determine if line is a comment (line comment or within block comment)
+Determine if text begins a snippet
+Construct snippet metadata
+Parse lines until end of snippet is detected

@@ -5,17 +5,15 @@ using System.Text;
 
 namespace Athena
 {
-	class SnippetParser : IBufferParser<Snippet>
+	sealed class SnippetParser
 	{
 		const byte tagDelimiter = (byte)'#';
 
-		public SequencePosition? TryParse(ReadOnlySequence<byte> buffer, out Snippet result)
+		public void ReceiveLine(ReadOnlySequence<byte> line)
 		{
-			//var snipBuilder = new SnippetBuilder();
 
-			//var tagStart = buffer.PositionOf(tagDelimiter);	
-			result = default;
-			return default;
+
 		}
+
 	}
 }

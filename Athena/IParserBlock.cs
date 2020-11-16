@@ -14,6 +14,6 @@ namespace Athena
 	/// </summary>
 	public interface IParserBlock<TIn, TOut, TState>
 	{
-		public Result<TOut> Parse(TIn input, ref TState context);
+		public (SequencePosition?, Result<TOut>) Parse(TIn input, ref TState context);
 	}
 }

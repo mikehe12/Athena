@@ -5,8 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Athena.Utils
+namespace Athena
 {
+    /*
+     * 
+     * 
+     * 
+     */
 	public static class ReadOnlySequenceExtensions
 	{
 		public static SequencePosition? PositionOfSequence<T>(in this ReadOnlySequence<T> source, ReadOnlySpan<T> searchSequence) where T : IEquatable<T>

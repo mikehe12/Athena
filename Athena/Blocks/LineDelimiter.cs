@@ -14,22 +14,22 @@ namespace Athena
 	{
 		const byte endOfLine = (byte)'\n';
 
-		public Result<LineBuffer> Parse(FileBlockBuffer input, ref int lineNumber)
+		public (SequencePosition?, Result<LineBuffer>) Parse(FileBlockBuffer input, ref int lineNumber)
 		{
 			var eol = input.Buffer.PositionOf(endOfLine);
 
 			if (eol == null)
 			{
-				return Result<LineBuffer>.Failure();
+				return (null, Result<LineBuffer>.Failure());
 			}
 
 			var line = input.Buffer.Slice(0, input.Buffer.GetPosition(1, eol.Value));
 
 			lineNumber++;
 
-			return Result<LineBuffer>.Success(
+			return (eol, Result<LineBuffer>.Success(
 				new LineBuffer(input.FileName, lineNumber, line)
-				);
+				));
 		}
 
 		public SequencePosition? TryParse(ReadOnlySequence<byte> buffer, out ReadOnlySequence<byte> result)
