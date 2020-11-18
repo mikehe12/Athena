@@ -15,13 +15,11 @@ namespace Athena.Test
 	{
 		readonly ITestOutputHelper output;
 		SnippetHeaderExtractor snippetExtractor;
-		//CommentState state;
 
 		public SnippetHeaderExtractorTests(ITestOutputHelper output)
 		{
 			this.output = output;
 			snippetExtractor = new SnippetHeaderExtractor();
-			//state = new CommentState(1, false);
 		}
 
 		[Theory]
@@ -31,9 +29,9 @@ namespace Athena.Test
 		{
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var (commentFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
+			var (headerFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
 
-			Assert.False(commentFound);
+			Assert.False(headerFound);
 			Assert.Equal(default(ReadOnlySequence<byte>), header);
 			Assert.Equal(default(ReadOnlySequence<byte>), remaining);
 		}
@@ -52,12 +50,12 @@ namespace Athena.Test
 			// Expected
 			var headerStart = testLine.IndexOf("|") + 1;
 			var headerEnd = testLine.Substring(headerStart).IndexOf("|");
-			var commentText = testLine.Substring(headerStart, headerEnd);
-			var expected = Encoding.UTF8.GetBytes(commentText);
+			var headerText = testLine.Substring(headerStart, headerEnd);
+			var expected = Encoding.UTF8.GetBytes(headerText);
 
-			var (commentFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
+			var (headerFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
 
-			Assert.True(commentFound);
+			Assert.True(headerFound);
 			Assert.Equal(expected, header.ToArray());
 		}
 
@@ -73,9 +71,9 @@ namespace Athena.Test
 		{
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var (commentFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
+			var (headerFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
 
-			Assert.False(commentFound);
+			Assert.False(headerFound);
 			Assert.Equal(default(ReadOnlySequence<byte>), header);
 			Assert.Equal(default(ReadOnlySequence<byte>), remaining);
 		}

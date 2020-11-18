@@ -31,10 +31,10 @@ namespace Athena.Test
 		{
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var commentFound = commentExtractor.TryGetLineComment(sequence, ref state, out ReadOnlySequence<byte> comment);
+			var (commentFound, comment) = commentExtractor.TryGetLineComment(sequence, ref state);
 
 			Assert.False(commentFound);
-			Assert.Equal(default(ReadOnlySequence<byte>), comment);
+			Assert.Equal(default, comment);
 		}
 
 
@@ -49,7 +49,7 @@ namespace Athena.Test
 		{
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var commentFound = commentExtractor.TryGetLineComment(sequence, ref state, out ReadOnlySequence<byte> comment);
+			var (commentFound, comment) = commentExtractor.TryGetLineComment(sequence, ref state);
 
 			Assert.True(commentFound);
 			var commentText = testLine.Substring(testLine.IndexOf("//") + 2);
@@ -66,7 +66,7 @@ namespace Athena.Test
 		{
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var commentFound = commentExtractor.TryGetLineComment(sequence, ref state, out ReadOnlySequence<byte> comment);
+			var (commentFound, comment) = commentExtractor.TryGetLineComment(sequence, ref state);
 
 			Assert.True(commentFound);
 			var commentText = testLine.Substring(testLine.IndexOf("/*") + 2);
@@ -85,7 +85,7 @@ namespace Athena.Test
 		{
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var commentFound = commentExtractor.TryGetLineComment(sequence, ref state, out ReadOnlySequence<byte> comment);
+			var (commentFound, comment) = commentExtractor.TryGetLineComment(sequence, ref state);
 
 			// Asserts
 			Assert.True(commentFound);
@@ -109,7 +109,7 @@ namespace Athena.Test
 			state = new CommentState(1, true);
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var commentFound = commentExtractor.TryGetLineComment(sequence, ref state, out ReadOnlySequence<byte> comment);
+			var (commentFound, comment) = commentExtractor.TryGetLineComment(sequence, ref state);
 
 			// Asserts
 			Assert.True(commentFound);
@@ -132,7 +132,7 @@ namespace Athena.Test
 			state = new CommentState(1, true);
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var commentFound = commentExtractor.TryGetLineComment(sequence, ref state, out ReadOnlySequence<byte> comment);
+			var (commentFound, comment) = commentExtractor.TryGetLineComment(sequence, ref state);
 
 			// Asserts
 			Assert.True(commentFound);

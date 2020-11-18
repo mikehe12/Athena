@@ -22,7 +22,7 @@ namespace Athena.Blocks
 			blockCommentEndBytes = Encoding.UTF8.GetBytes("*/");
 		}
 
-		public bool TryGetLineComment(ReadOnlySequence<byte> line, ref CommentState state, out ReadOnlySequence<byte> commentText)
+		public (bool, ReadOnlySequence<byte>) TryGetLineComment(in ReadOnlySequence<byte> line, ref CommentState state)
 		{
 			SequencePosition commentStart = line.Start;
 			SequencePosition commentEnd = line.End;
@@ -76,13 +76,11 @@ namespace Athena.Blocks
 				// No comment found
 				else
 				{
-					commentText = default;
-					return false;
+					return default;
 				}
 			}
 
-			commentText = focus.Slice(commentStart, commentEnd);
-			return true;
+			return (true, focus.Slice(commentStart, commentEnd));
 		}
 	}
 
