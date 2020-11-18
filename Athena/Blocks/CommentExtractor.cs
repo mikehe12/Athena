@@ -26,32 +26,39 @@ namespace Athena.Blocks
 		{
 			SequencePosition commentStart = line.Start;
 			SequencePosition commentEnd = line.End;
+			var focus = line;
+
 			if (state.InBlockComment)
 			{
-				// Find index to trim comment prefix
-				if (line.PositionOfSequence(blockCommentPrefixBytes) is SequencePosition prefixPosition)
-				{
-					commentStart = line.GetPosition(blockCommentPrefixBytes.Length, prefixPosition);
-				}
-
 				// Find if block comment is ending
-				if (line.PositionOfSequence(blockCommentEndBytes) is SequencePosition endCommentPosition)
+				var (blockCommentEnding, endCommentPosition, _) = focus.FindSequence(blockCommentEndBytes);
+
+				if (blockCommentEnding)
 				{
-					commentEnd = line.GetPosition(0, endCommentPosition);
+					commentEnd = focus.GetPosition(0, endCommentPosition);
+					// Slice out the end chars and after
+					focus = focus.Slice(0, commentEnd);
 
 					// Set state to indicate end of block comment
 					state = new CommentState(state.LineNumber, false);
+				}
+
+				// Find index to trim comment prefix
+				var (prefixFound, prefixPosition, remaining) = focus.FindSequence(blockCommentPrefixBytes);
+				if (prefixFound)
+				{
+					commentStart = focus.GetPosition(blockCommentPrefixBytes.Length, prefixPosition);
 				}
 			}
 			else
 			{
 				// Check for block comment
-				if (line.PositionOfSequence(blockCommentStartBytes) is SequencePosition startCommentPosition)
+				if (focus.PositionOfSequence(blockCommentStartBytes) is SequencePosition startCommentPosition)
 				{
-					commentStart = line.GetPosition(blockCommentStartBytes.Length, startCommentPosition);
+					commentStart = focus.GetPosition(blockCommentStartBytes.Length, startCommentPosition);
 
 					// Check for block comment end within same line:
-					var commentSlice = line.Slice(startCommentPosition);
+					var commentSlice = focus.Slice(startCommentPosition);
 					if (commentSlice.PositionOfSequence(blockCommentEndBytes) is SequencePosition blockCommentEnd)
 					{
 						commentEnd = blockCommentEnd;
@@ -62,9 +69,9 @@ namespace Athena.Blocks
 					}
 				}
 				// Check for line comment
-				else if (line.PositionOfSequence(lineCommentStartBytes) is SequencePosition startLineCommentPosition)
+				else if (focus.PositionOfSequence(lineCommentStartBytes) is SequencePosition startLineCommentPosition)
 				{
-					commentStart = line.GetPosition(blockCommentStartBytes.Length, startLineCommentPosition);
+					commentStart = focus.GetPosition(blockCommentStartBytes.Length, startLineCommentPosition);
 				}
 				// No comment found
 				else
@@ -74,7 +81,7 @@ namespace Athena.Blocks
 				}
 			}
 
-			commentText = line.Slice(commentStart, commentEnd);
+			commentText = focus.Slice(commentStart, commentEnd);
 			return true;
 		}
 	}

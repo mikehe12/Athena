@@ -125,6 +125,7 @@ namespace Athena.Test
 		[InlineData("* abcd efjk lmno*/")]
 		[InlineData("	* abcd efjk lmno */")]
 		[InlineData("*abcd //efjk lmno		*/  asd")]
+		[InlineData("*/  asd")]
 		public void GivenWithinBlockCommentWithEnd_FindsLineAfterPrefixAndEnd(string testLine)
 		{
 			state = new CommentState(1, true);
@@ -136,7 +137,7 @@ namespace Athena.Test
 			Assert.True(commentFound);
 			var startIndex = testLine.IndexOf("*") + 1;
 			var endIndex = testLine.IndexOf("*/");
-			var commentText = testLine.Substring(startIndex, endIndex - startIndex);
+			var commentText = testLine.Substring(startIndex, Math.Max(0, endIndex - startIndex));
 			Assert.Equal(Encoding.UTF8.GetBytes(commentText), comment.ToArray());
 
 			// Should indicate no longer in a block comment
