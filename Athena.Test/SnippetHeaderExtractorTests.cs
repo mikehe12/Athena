@@ -24,11 +24,12 @@ namespace Athena.Test
 			//state = new CommentState(1, false);
 		}
 
-		[Fact]
-		public void GivenNoSnippet_ReturnsFalse()
+		[Theory]
+		[InlineData("")]
+		[InlineData("abcd efjk lmno")]
+		public void GivenNoSnippet_ReturnsFalse(string testLine)
 		{
-			const string TestLine = "abcd efjk lmno";
-			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(TestLine));
+			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
 			var (commentFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
 
