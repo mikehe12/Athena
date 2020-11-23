@@ -10,24 +10,24 @@ using System.Threading.Tasks;
 namespace Athena
 {
 	public sealed class LineDelimiter : IBufferParser<ReadOnlySequence<byte>>,
-		IParserBlock<FileBlockBuffer, LineBuffer, int>
+		IParserBlock<ReadOnlySequence<byte>, LineReference>
 	{
 		const byte endOfLine = (byte)'\n';
 
-		public (bool, LineBuffer) Parse(FileBlockBuffer input, ref int lineNumber)
+		public (bool, ReadOnlySequence<byte>, SequencePosition) Parse(ReadOnlySequence<byte> input, ref LineReference context)
 		{
-			var (eolFound, eolPos, remaining) = input.Buffer.FindValue(endOfLine);
+			var (eolFound, eolPos, remaining) = input.FindValue(endOfLine);
 
 			if (!eolFound)
 			{
 				return default;
 			}
 
-			var line = input.Buffer.Slice(0, eolPos);
+			var line = input.Slice(0, eolPos);
 
-			lineNumber++;
+			context = new LineReference(context.FileName, context.LineNumber + 1);
 
-			return (true, new LineBuffer(input.FileName, lineNumber, line));
+			return (true, line, input.GetPosition(1, eolPos));
 		}
 
 		public SequencePosition? TryParse(ReadOnlySequence<byte> buffer, out ReadOnlySequence<byte> result)

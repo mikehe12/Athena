@@ -8,30 +8,29 @@ using System.Threading.Tasks;
 
 namespace Athena
 {
-	public sealed class SingleParsedConsumer<T> : IBufferConsumer
+	public sealed class SingleParsedConsumer<TOut, TContext> : IBufferConsumer
 	{
-		readonly IBufferParser<T> parser;
-		readonly IParserBlock<FileBlockBuffer, T, int> parserBlock;
-		readonly Action<T> consumer;
+		readonly IBufferParser<TOut> parser;
+		readonly IParserBlock<TOut, TContext> parserBlock;
+		readonly Action<TOut> consumer;
 
-		public SingleParsedConsumer(IBufferParser<T> parser, Action<T> consumer)
+		public SingleParsedConsumer(IBufferParser<TOut> parser, Action<TOut> consumer)
 		{
 			this.parser = parser;
 			this.consumer = consumer;
 		}
 
 
-		public SequencePosition TryConsume(ref FileBlockBuffer fileBlock, ref int lineNumber)
+		public SequencePosition TryConsume(ref ReadOnlySequence<byte> buffer, ref TContext context)
 		{
-			var buffer = fileBlock.Buffer;
 			SequencePosition parsed = buffer.Start;
 
-			while (parserBlock.Parse(fileBlock, ref lineNumber) is (true, var output))
+			while (parserBlock.Parse(buffer, ref context) is (true, var output, var readUntil))
 			{
 				consumer(output);
 
 				// Advance past the parsed section
-				//parsed = buffer.GetPosition(1, parsedSection);
+				parsed = buffer.GetPosition(1, readUntil);
 			}
 
 			return parsed;
@@ -41,7 +40,7 @@ namespace Athena
 		{
 			SequencePosition parsed = buffer.Start;
 
-			while (parser.TryParse(buffer.Slice(parsed), out T result) is SequencePosition parsedSection)
+			while (parser.TryParse(buffer.Slice(parsed), out TOut result) is SequencePosition parsedSection)
 			{
 				consumer(result);
 

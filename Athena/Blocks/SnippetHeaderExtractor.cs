@@ -15,16 +15,17 @@ namespace Athena.Blocks
 	{
 		readonly byte tagDelimiter = (byte)'|';
 
-		public (bool, ReadOnlySequence<byte>, ReadOnlySequence<byte>) TryGetSnippetHeader(in ReadOnlySequence<byte> text)
+		public (bool, ReadOnlySequence<byte>, SequencePosition) TryGetSnippetHeader(in ReadOnlySequence<byte> text)
 		{
 			return text.FindValue(tagDelimiter) switch
 			{
 				(false, _, _) => default,
-				(true, _, var remaining) => 
+				(true, var firstDelimiterPos, var remaining) => 
 					remaining.FindValue(tagDelimiter) switch
 					{
 						(false, _, _) => default,
-						(true, var end, var afterTag) => (true, remaining.Slice(0, end), afterTag)
+						(true, var end, _) => (true, remaining.Slice(0, end),
+						text.GetPosition(text.GetOffset(firstDelimiterPos) + remaining.GetOffset(end)))
 					}
 			};
 		}

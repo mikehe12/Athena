@@ -34,7 +34,7 @@ namespace Athena.Test
 			var parsedStrings = new List<string>();
 
 			var delimiter = new CharacterBufferDelimiter('\n');
-			var consumer = new SingleParsedConsumer<string>(delimiter,
+			var consumer = new SingleParsedConsumer<string, UInt16>(delimiter,
 				s => parsedStrings.Add(s));
 
 			var streamReader = new StreamPipelineReader(reader, consumer);

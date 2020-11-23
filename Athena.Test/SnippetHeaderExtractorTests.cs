@@ -29,11 +29,11 @@ namespace Athena.Test
 		{
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var (headerFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
+			var (headerFound, header, readPosition) = snippetExtractor.TryGetSnippetHeader(sequence);
 
 			Assert.False(headerFound);
-			Assert.Equal(default(ReadOnlySequence<byte>), header);
-			Assert.Equal(default(ReadOnlySequence<byte>), remaining);
+			Assert.Equal(default, header);
+			Assert.Equal(default, readPosition);
 		}
 
 
@@ -53,7 +53,7 @@ namespace Athena.Test
 			var headerText = testLine.Substring(headerStart, headerEnd);
 			var expected = Encoding.UTF8.GetBytes(headerText);
 
-			var (headerFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
+			var (headerFound, header, _) = snippetExtractor.TryGetSnippetHeader(sequence);
 
 			Assert.True(headerFound);
 			Assert.Equal(expected, header.ToArray());
@@ -71,11 +71,11 @@ namespace Athena.Test
 		{
 			var sequence = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(testLine));
 
-			var (headerFound, header, remaining) = snippetExtractor.TryGetSnippetHeader(sequence);
+			var (headerFound, header, readPosition) = snippetExtractor.TryGetSnippetHeader(sequence);
 
 			Assert.False(headerFound);
-			Assert.Equal(default(ReadOnlySequence<byte>), header);
-			Assert.Equal(default(ReadOnlySequence<byte>), remaining);
+			Assert.Equal(default, header);
+			Assert.Equal(default, readPosition);
 		}
 	}
 }

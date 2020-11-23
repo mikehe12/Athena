@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Athena.DataTypes;
+using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
@@ -50,7 +51,7 @@ namespace Athena.Test
 			// Delimit lines
 			var delimiter = new LineDelimiter();
 
-			var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>>(delimiter,
+			var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>, LineReference>(delimiter,
 				s => lines.Add(Encoding.UTF8.GetString(s)));
 			var pipelineReader = new StreamPipelineReader(reader, consumer);
 
@@ -68,7 +69,7 @@ namespace Athena.Test
 			// Search for sections
 			var sectioner = new SectionExtractor();
 
-			var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>>(sectioner,
+			var consumer = new SingleParsedConsumer<ReadOnlySequence<byte>, LineReference>(sectioner,
 				s => sections.Add(Encoding.UTF8.GetString(s)));
 			var pipelineReader = new StreamPipelineReader(reader, consumer);
 

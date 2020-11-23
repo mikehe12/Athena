@@ -1,5 +1,6 @@
 ﻿using Athena.Primitives;
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,8 @@ namespace Athena
 	/// The block can be constructed with configuration, but operates
 	/// functionally.
 	/// </summary>
-	public interface IParserBlock<TIn, TOut, TState>
+	public interface IParserBlock<TOut, TState>
 	{
-		public (bool, TOut) Parse(TIn input, ref TState context);
+		public (bool, TOut, SequencePosition) Parse(ReadOnlySequence<byte> input, ref TState context);
 	}
 }
