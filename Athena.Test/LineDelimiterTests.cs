@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Athena.DataTypes;
+using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
@@ -14,11 +15,63 @@ namespace Athena.Test
 	public class LineDelimiterTests
 	{
 		readonly ITestOutputHelper output;
+		readonly LineDelimiter delimiter;
 
 		public LineDelimiterTests(ITestOutputHelper output)
 		{
+			delimiter = new();
 			this.output = output;
 		}
+
+		[Theory]
+		[InlineData("")]
+		[InlineData("test string")]
+		[InlineData("	Hello World \r")]
+		public void GivenNoEndOfLine_ShouldReturnFalse(string s)
+		{
+			// Retrieve buffer of bytes
+			var buffer = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(s));
+
+			// Initialize line number context
+			var lineNumber = new LineReference(string.Empty, 0);
+
+			// Parse line
+			var (lineFound, readCursor, line) = delimiter.Parse(buffer, ref lineNumber);
+
+			Assert.False(lineFound);
+			Assert.Equal(buffer.Start, readCursor);
+			Assert.Equal(default, line);
+		}
+
+
+		[Theory]
+		[InlineData("\n")]
+		[InlineData("test string\n")]
+		[InlineData("	Hello World \r\n")]
+		[InlineData("Hello World \r\n next line")]
+		[InlineData("Hello World \n next line")]
+		public void GivenSingleEndOfLine_ShouldFindLine(string s)
+		{
+			// Retrieve buffer of bytes
+			var buffer = new ReadOnlySequence<byte>(Encoding.UTF8.GetBytes(s));
+
+			// Initialize line number context
+			var lineNumber = new LineReference(string.Empty, 0);
+
+			// Parse line
+			var (lineFound, readCursor, line) = delimiter.Parse(buffer, ref lineNumber);
+
+			// Calculate expected values
+			var (_, eolPos, _) = buffer.FindValue((byte)'\n');
+			var afterLinePos = buffer.GetPosition(1, eolPos); 
+
+			Assert.True(lineFound);
+			Assert.Equal(afterLinePos, readCursor);
+			Assert.Equal(buffer.Slice(0, afterLinePos), line);
+			Assert.Equal(1, lineNumber.LineNumber);
+		}
+
+
 
 
 		[Theory]
@@ -37,20 +90,23 @@ namespace Athena.Test
 			var buffer = new ReadOnlySequence<byte>(bytes);
 
 			// Initialize delimiter
-			LineDelimiter delimiter = new();
 			List<ReadOnlySequence<byte>> lines = new();
 
-			SequencePosition parsed = buffer.Start;
-			while (delimiter.TryParse(buffer.Slice(parsed), out ReadOnlySequence<byte> result) is SequencePosition parsedSection)
-			{
-				lines.Add(result);
+			// Initialize read pointer
+			SequencePosition parsedToPos = buffer.Start;
 
-				// Advance past the parsed section
-				parsed = buffer.GetPosition(1, parsedSection);
+			// Initialize line counter
+			LineReference lineReference = new(string.Empty, 0);
+
+			while (delimiter.Parse(buffer.Slice(parsedToPos), ref lineReference) is (true, var eol, var line))
+			{
+				lines.Add(line);
+
+				//// Advance past the parsed section
+				parsedToPos = eol;
 			}
 
 			Assert.Equal(lineCount, lines.Count);
-			Assert.All(lines, l => Assert.True(l.ToArray().Last() == (byte)'\n'));
 		}
 
 

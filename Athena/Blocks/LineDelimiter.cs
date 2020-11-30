@@ -27,14 +27,14 @@ namespace Athena
 			// Update the line state by incrementing the line number, having found a line.
 			context = new LineReference(context.FileName, context.LineNumber + 1);
 
-			// Indicate that the buffer has been read until the end of the line.
-			var readUntil = input.GetPosition(1, eolPos);
+			// Find position pointer after end of line
+			var afterLine = input.GetPosition(1, eolPos);
 
 			// Slice the extents of the line to return.
-			var line = input.Slice(0, eolPos);
+			var line = input.Slice(0, afterLine);
 
 			// Return a tuple to indicate that a line has been found.
-			return (true, readUntil, line);
+			return (true, afterLine, line);
 		}
 
 		public SequencePosition? TryParse(ReadOnlySequence<byte> buffer, out ReadOnlySequence<byte> result)
