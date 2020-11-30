@@ -15,6 +15,6 @@ namespace Athena
 	/// </summary>
 	public interface IParserBlock<TOut, TState>
 	{
-		public (bool, TOut, SequencePosition) Parse(ReadOnlySequence<byte> input, ref TState context);
+		public (bool, SequencePosition, TOut) Parse(ReadOnlySequence<byte> input, ref TState context);
 	}
 }

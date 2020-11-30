@@ -14,27 +14,27 @@ namespace Athena
 	{
 		const byte endOfLine = (byte)'\n';
 
-		public (bool, ReadOnlySequence<byte>, SequencePosition) Parse(ReadOnlySequence<byte> input, ref LineReference context)
+		public (bool, SequencePosition, ReadOnlySequence<byte>) Parse(ReadOnlySequence<byte> input, ref LineReference context)
 		{
 			var (eolFound, eolPos, _) = input.FindValue(endOfLine);
 
 			// If line is not found, indicate with a false returns.
 			if (!eolFound)
 			{
-				return default;
+				return (false, input.Start, default);
 			}
-
-			// Slice the extents of the line to return
-			var line = input.Slice(0, eolPos);
 
 			// Update the line state by incrementing the line number, having found a line.
 			context = new LineReference(context.FileName, context.LineNumber + 1);
 
-			// Indicate that the line has been read by returning the position after the line.
+			// Indicate that the buffer has been read until the end of the line.
 			var readUntil = input.GetPosition(1, eolPos);
 
+			// Slice the extents of the line to return.
+			var line = input.Slice(0, eolPos);
+
 			// Return a tuple to indicate that a line has been found.
-			return (true, line, readUntil);
+			return (true, readUntil, line);
 		}
 
 		public SequencePosition? TryParse(ReadOnlySequence<byte> buffer, out ReadOnlySequence<byte> result)

@@ -25,12 +25,12 @@ namespace Athena
 		{
 			SequencePosition parsed = buffer.Start;
 
-			while (parserBlock.Parse(buffer, ref context) is (true, var output, var readUntil))
+			while (parserBlock.Parse(buffer, ref context) is (true, var consumed, var output))
 			{
 				consumer(output);
 
 				// Advance past the parsed section
-				parsed = buffer.GetPosition(1, readUntil);
+				parsed = buffer.GetPosition(1, consumed);
 			}
 
 			return parsed;
