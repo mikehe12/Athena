@@ -75,6 +75,7 @@ namespace Athena.Test
 
 
 		[Theory]
+		[InlineData(10)]
 		[InlineData(256)]
 		[InlineData(1024)]
 		public void GivenLineSequence_ShouldSplitLines(int lineCount)
@@ -83,10 +84,12 @@ namespace Athena.Test
 			var rand = new Random();
 
 			// Initialize data
-			var data = string.Concat(
-				Enumerable.Range(1, lineCount).Select(
-					_ => new string('x', rand.Next(maxLineLength)) + '\n'));
-			var bytes = Encoding.UTF8.GetBytes(data);
+			var rawLines = Enumerable.Range(0, lineCount)
+				.Select(_ => StringHelpers.GetRandomAlphanumericString(rand.Next(maxLineLength)))
+				.ToArray();
+			
+			var completeString = string.Join('\n', rawLines) + "\n";
+			var bytes = Encoding.UTF8.GetBytes(completeString);
 			var buffer = new ReadOnlySequence<byte>(bytes);
 
 			// Initialize delimiter
@@ -102,11 +105,17 @@ namespace Athena.Test
 			{
 				lines.Add(line);
 
-				//// Advance past the parsed section
+				// Advance past the parsed section
 				parsedToPos = eol;
 			}
 
+			// Calculate expected data
+			var expectedLines = rawLines.Select(s => s + '\n')
+				.Select(s => Encoding.UTF8.GetBytes(s))
+				.ToArray();
+
 			Assert.Equal(lineCount, lines.Count);
+			Assert.Equal(expectedLines, lines.Select(x => x.ToArray()));
 		}
 
 
